@@ -6,10 +6,11 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.example.lmaxmicroservice.event.LmaxEventFactory;
 import com.example.lmaxmicroservice.event.LmaxEventHandler;
+import com.example.lmaxmicroservice.event.LmaxEventHandlerOutput;
 import com.example.lmaxmicroservice.event.Event;
-import java.util.concurrent.Executors;
 import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.dsl.ProducerType;
+import com.lmax.disruptor.util.DaemonThreadFactory;
 
 
 @Configuration
@@ -18,8 +19,8 @@ public class RingBufferManager {
     public RingBuffer<Event> EventRingBuffer(){
         LmaxEventFactory eventFactory = new LmaxEventFactory();
         int bufferSize = 1024;
-        Disruptor<Event> disruptor = new Disruptor<>(eventFactory, bufferSize, Executors.newCachedThreadPool(), ProducerType.SINGLE, new SleepingWaitStrategy());
-        disruptor.handleEventsWith(new LmaxEventHandler());
+        Disruptor<Event> disruptor = new Disruptor<>(eventFactory, bufferSize, DaemonThreadFactory.INSTANCE, ProducerType.SINGLE, new SleepingWaitStrategy());
+        disruptor.handleEventsWith(new LmaxEventHandler()).then(new LmaxEventHandlerOutput());
         RingBuffer<Event> ringBuffer = disruptor.start();
         return ringBuffer;
     }

@@ -11,6 +11,7 @@ public class LmaxEventHandler implements EventHandler<Event> {
     public void onEvent(Event event, long sequence, boolean endOfBatch) {
         try{
             log.info("consume message start");
+            Thread.sleep(100);
             event.setValue(event.getValue() * 2); // Dummy operation
             log.info("the message is: " + event.getValue());
         } catch (Exception e) {

@@ -26,7 +26,7 @@ public class RingBufferManager {
         int threadPoolSize = 200; // Define the size of the thread pool
         ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize, DaemonThreadFactory.INSTANCE);
         Disruptor<Event> disruptor = new Disruptor<>(eventFactory, bufferSize, executor, ProducerType.SINGLE, new SleepingWaitStrategy());
-        disruptor.handleEventsWith(new LmaxEventHandler()).then(new LmaxEventHandlerOutput());
+        disruptor.handleEventsWith(new LmaxEventHandler());
         RingBuffer<Event> ringBuffer = disruptor.start();
         return ringBuffer;
     }

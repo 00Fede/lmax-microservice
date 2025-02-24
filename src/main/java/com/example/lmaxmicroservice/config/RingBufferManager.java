@@ -1,6 +1,10 @@
 package com.example.lmaxmicroservice.config;
 
 import org.springframework.context.annotation.Configuration;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.springframework.context.annotation.Bean;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -19,7 +23,9 @@ public class RingBufferManager {
     public RingBuffer<Event> EventRingBuffer(){
         LmaxEventFactory eventFactory = new LmaxEventFactory();
         int bufferSize = 1024;
-        Disruptor<Event> disruptor = new Disruptor<>(eventFactory, bufferSize, DaemonThreadFactory.INSTANCE, ProducerType.SINGLE, new SleepingWaitStrategy());
+        int threadPoolSize = 200; // Define the size of the thread pool
+        ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize, DaemonThreadFactory.INSTANCE);
+        Disruptor<Event> disruptor = new Disruptor<>(eventFactory, bufferSize, executor, ProducerType.SINGLE, new SleepingWaitStrategy());
         disruptor.handleEventsWith(new LmaxEventHandler()).then(new LmaxEventHandlerOutput());
         RingBuffer<Event> ringBuffer = disruptor.start();
         return ringBuffer;

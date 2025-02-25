@@ -17,7 +17,7 @@ Para acceder al servicio con la implementación realizada se ofrece el siguiente
 ## Vista de Despliegue
 ![Diagrama de despliegue](docs/vista-despliegue.png)
 ## Vistas de concurrencia
-
+### Vista de actividades
 ![Vista de actividades](docs/vista-actividades.png)
-
+### Vista de secuencia
 ![Vista de secuencia](docs/vista-secuencia.png)

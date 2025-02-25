@@ -9,7 +9,7 @@
       </elementProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ASR_Latencia" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="ASR_Latencia">
         <stringProp name="TestPlan.comments">Se requiere validar que la latencia máxima del proceso de emparejamiento sean 200ms</stringProp>
         <intProp name="ThreadGroup.num_threads">9</intProp>
         <intProp name="ThreadGroup.ramp_time">600</intProp>
@@ -24,8 +24,8 @@
       </ThreadGroup>
       <hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Tx_200ms">
-          <stringProp name="HTTPSampler.domain">localhost</stringProp>
-          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="TestPlan.comments">Transacción </stringProp>
+          <stringProp name="HTTPSampler.domain">microservicio-alb-625073029.us-east-1.elb.amazonaws.com</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.path">process</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>

@@ -20,4 +20,10 @@ public class LMAXController {
         producer.produce(value);
         return "Processed: " + value;
     }
+
+    @RequestMapping("/")
+    @ResponseBody
+    public String health() {
+        return "Healthy";
+    }
 }
